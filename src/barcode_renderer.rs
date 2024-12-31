@@ -27,17 +27,29 @@ pub fn save_barcode_as_svg(barcode_data: String,file_path:&str)-> std::io::Resul
     Ok(())
 }
 
+pub struct PngConfig {
+    pub height_barcode: u32,
+    pub border_size: u32,
+}
+
 /// Save Ean in an png file
-pub fn save_barcode_as_png(barcode_data: String,file_path:&str) {
+pub fn save_barcode_as_png(barcode_data: String,file_path:&str,config:PngConfig) {
     let mut f = std::fs::File::create(file_path).unwrap();
 
         let image_width = barcode_data.len() *10;
-        let size_header = 10;
-        let image_height = 50 ;
+        let size_border = config.border_size;
+        let image_height = config.height_barcode;
         let mut img_data: Vec<u8> = Vec::new();
         let mut line_index = 0;
 
-        for _ in 0..size_header {
+        for _ in 0..size_border {
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
             for _ in barcode_data.chars() {
                 for _ in 0..40 {
                     img_data.push(
@@ -46,11 +58,25 @@ pub fn save_barcode_as_png(barcode_data: String,file_path:&str) {
                 }
                 
             }
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
         }
 
         while line_index < image_height {
 
 
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
             // ecriture d une ligne
             for char in barcode_data.chars() {
                 if char == '1' {
@@ -76,11 +102,25 @@ pub fn save_barcode_as_png(barcode_data: String,file_path:&str) {
                 }
     
             }
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
 
             line_index +=1
         }
 
-        for _ in 0..size_header {
+        for _ in 0..size_border {
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
             for _ in barcode_data.chars() {
                 for _ in 0..40 {
                     img_data.push(
@@ -89,9 +129,16 @@ pub fn save_barcode_as_png(barcode_data: String,file_path:&str) {
                 }
                 
             }
+            for _ in 0..size_border {
+                for _i in 0..4 {
+                    img_data.push(
+                        0xff
+                    );
+                }
+            }
         }
         
-        match png_writer::write(&mut f, &img_data, image_width as u32, image_height + 2*size_header) {
+        match png_writer::write(&mut f, &img_data, image_width as u32 + 2*size_border, image_height + 2*size_border) {
             Ok(_) => {
                 println!("Image successful saved on {}",file_path);
             },
