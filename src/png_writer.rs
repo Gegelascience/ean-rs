@@ -151,8 +151,6 @@ pub fn write<W: ::std::io::Write>(
     h: u32,
 ) -> Result<(), ::std::io::Error> {
 
-    println!("{:?}",w*h*4);
-    println!("{:?}",image.len());
 
     assert!(w as usize * h as usize * 4 == image.len());
 

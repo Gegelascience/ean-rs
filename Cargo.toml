@@ -3,6 +3,13 @@ name = "ean-rs"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+description = "A Rust library for generating and validating EAN barcodes."
+repository = "https://github.com/Gegelascience/ean-rs"
+documentation = "https://docs.rs/ean-rs"
+homepage = "https://github.com/Gegelascience/ean-rs"
+keywords = ["barcode", "ean"]
+categories = ["encoding", "text-processing"]
+exclude = ["/target", "/testResults"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

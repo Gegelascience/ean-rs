@@ -27,6 +27,18 @@ pub fn save_barcode_as_svg(barcode_data: String,file_path:&str)-> std::io::Resul
     Ok(())
 }
 
+/// Dimensions configuration for png file
+/// 
+/// # Examples
+/// 
+/// ```
+///    let config_png = ean_rs::PngConfig
+///   {
+///      height_barcode: 200,
+///      border_size: 50
+///  };
+/// ```
+/// 
 pub struct PngConfig {
     pub height_barcode: u32,
     pub border_size: u32,

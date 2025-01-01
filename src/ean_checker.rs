@@ -1,5 +1,14 @@
 
-/// Check if string is an ean 8/13 or not
+/// Check if the given string is a correct EAN-8 or EAN-13
+/// 
+///  # Examples
+/// ```
+/// use ean_rs::is_correct_ean;
+/// 
+/// assert_eq!(is_correct_ean("3666154117284"),true);
+/// 
+/// ```
+/// 
 pub fn is_correct_ean(ean_test: &str) -> bool {
     
     // check length
