@@ -10,6 +10,7 @@ homepage = "https://github.com/Gegelascience/ean-rs"
 keywords = ["barcode", "ean"]
 categories = ["encoding", "text-processing"]
 exclude = ["/target", "/testResults"]
+readme="README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
