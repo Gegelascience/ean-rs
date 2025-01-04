@@ -19,12 +19,15 @@ pub fn show_barcode_on_terminal(barcode_data: String) {
 }
 
 /// Save Ean in an svg file
-pub fn save_barcode_as_svg(barcode_data: String,file_path:&str)-> std::io::Result<()> {
+pub fn save_barcode_as_svg(barcode_data: String,file_path:&str) {
     let svg_content =  svg_parser::get_svg_string(barcode_data);
         
-    fs::write(file_path, svg_content.as_bytes())?;
-
-    Ok(())
+    match fs::write(file_path, svg_content.as_bytes()) {
+        Ok(_) => {
+            println!("Svg successful saved on {}",file_path);
+        },
+        Err(e) => panic!("Error {:?}", e),
+    }
 }
 
 /// Dimensions configuration for png file

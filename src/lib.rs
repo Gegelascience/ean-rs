@@ -41,7 +41,7 @@ pub fn show_on_terminal(ean: &str) {
 /// ```
 /// use ean_rs::save_as_png;
 /// 
-/// save_as_png("3666154117284", "testResults/test13.png",None);
+/// save_as_png("3666154117284", "test13.png",None);
 /// 
 /// ```
 /// 
@@ -55,7 +55,7 @@ pub fn show_on_terminal(ean: &str) {
 ///   border_size: 50
 /// };
 /// 
-/// save_as_png("3666154117284", "testResults/test13custom.png",Some(config_png));
+/// save_as_png("3666154117284", "test13custom.png",Some(config_png));
 /// 
 /// ```
 /// 
@@ -88,7 +88,7 @@ pub fn save_as_png(ean: &str, file_path:&str, config:Option<barcode_renderer::Pn
 /// ```
 /// use ean_rs::save_as_svg;
 /// 
-/// save_as_svg("3666154117284", "testResults/test13.svg");
+/// save_as_svg("3666154117284", "test13.svg");
 /// 
 /// ```
 /// 

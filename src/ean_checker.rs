@@ -74,14 +74,26 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_good_ean() {
+    fn test_good_ean_13() {
         assert_eq!(is_correct_ean("3666154117284"),true);
     }
 
     #[test]
-    fn test_bad_add() {
+    fn test_bad_ean_13() {
         // This assert would fire and test will fail.
         // Please note, that private functions can be tested too!
         assert_eq!(is_correct_ean("366615411728"), false);
+    }
+
+    #[test]
+    fn test_good_ean_8() {
+        assert_eq!(is_correct_ean("12345670"),true);
+    }
+
+    #[test]
+    fn test_bad_ean_8() {
+        // This assert would fire and test will fail.
+        // Please note, that private functions can be tested too!
+        assert_eq!(is_correct_ean("12345678"), false);
     }
 }
