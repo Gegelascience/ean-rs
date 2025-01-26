@@ -67,7 +67,7 @@ pub enum PngConfig {
 /// 
 /// ```
 /// 
-/// /// ```	
+/// ```	
 /// use ean_rs::PngConfig;
 /// use ean_rs::save_as_png;
 /// 
