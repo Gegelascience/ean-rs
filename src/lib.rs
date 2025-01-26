@@ -9,8 +9,11 @@ mod svg_parser;
 mod png_writer;
 mod barcode_data;
 
+
+pub use barcode_renderer::AdvancedPngConfig;
+pub use barcode_renderer::SimplePngConfig;
+    
 pub use crate::ean_checker::is_correct_ean;
-pub use crate::barcode_renderer::PngConfig;
 
 /// Show an ean on the terminal
 /// 
@@ -34,6 +37,11 @@ pub fn show_on_terminal(ean: &str) {
     } 
 }
 
+pub enum PngConfig {
+    Simple(SimplePngConfig),
+    Advanced(AdvancedPngConfig),
+}
+
 /// Save an ean as a png file
 /// 
 /// # Examples
@@ -49,25 +57,47 @@ pub fn show_on_terminal(ean: &str) {
 /// use ean_rs::PngConfig;
 /// use ean_rs::save_as_png;
 /// 
-/// let config_png = PngConfig
-/// {
+/// let config_png = PngConfig::Simple(ean_rs::SimplePngConfig {
+/// 
 ///    height_barcode: 200,
-///   border_size: 50
-/// };
+///    border_size: 50
+/// });
 /// 
 /// save_as_png("3666154117284", "test13custom.png",Some(config_png));
 /// 
 /// ```
 /// 
-pub fn save_as_png(ean: &str, file_path:&str, config:Option<barcode_renderer::PngConfig>) {
+/// /// ```	
+/// use ean_rs::PngConfig;
+/// use ean_rs::save_as_png;
+/// 
+/// let config_png = PngConfig::Advanced(ean_rs::SimplePngConfig {
+/// 
+///    height_barcode: 200,
+///    border_size: 50,
+///    color_barcode: (255,0,0),
+/// });
+/// 
+/// save_as_png("3666154117284", "test213custom.png",Some(config_png));
+/// 
+/// ```
+/// 
+pub fn save_as_png(ean: &str, file_path:&str, config:Option<PngConfig>) {
     if ean_checker::is_correct_ean(ean) {
-        let config_png: barcode_renderer::PngConfig;
+        let config_png: barcode_renderer::AdvancedPngConfig;
         match config {
-            Some(x) => config_png = x,
-            None => config_png = barcode_renderer::PngConfig {
-                height_barcode:100,
-                border_size:10
-            }
+            Some(x) => {
+                match x {
+                    PngConfig::Advanced(x) => {config_png = x},
+                    PngConfig::Simple(x) => {
+                        let mut tmp_config_png = barcode_renderer::AdvancedPngConfig::default();
+                        tmp_config_png.height_barcode = x.height_barcode;
+                        tmp_config_png.border_size = x.border_size;
+                        config_png = tmp_config_png;
+                    },
+                }
+            },
+            None => config_png = barcode_renderer::AdvancedPngConfig::default(),
         }
 
         if  ean.len() ==13 {

@@ -35,20 +35,57 @@ pub fn save_barcode_as_svg(barcode_data: String,file_path:&str) {
 /// # Examples
 /// 
 /// ```
-///    let config_png = ean_rs::PngConfig
-///   {
+///    let config_png = ean_rs::SimplePngConfig {
+///   
 ///      height_barcode: 200,
 ///      border_size: 50
 ///  };
 /// ```
 /// 
-pub struct PngConfig {
+pub struct SimplePngConfig {
     pub height_barcode: u32,
     pub border_size: u32,
 }
 
+impl Default for SimplePngConfig {
+    fn default() -> Self {
+        SimplePngConfig {
+            height_barcode: 100,
+            border_size: 10,
+        }
+    }
+    
+}
+// Dimensions and color configuration for png file
+///
+/// # Examples
+///
+/// ```
+///   let config_png = ean_rs::AdvancedPngConfig {
+///    height_barcode: 200,
+///    border_size: 50,
+///    color_barcode: (255,0,0),
+///  };
+pub struct AdvancedPngConfig {
+    pub height_barcode: u32,
+    pub border_size: u32,
+    pub color_barcode: (u8,u8,u8),
+}
+
+impl Default for AdvancedPngConfig {
+    fn default() -> Self {
+        AdvancedPngConfig {
+            height_barcode: 100,
+            border_size: 10,
+            color_barcode: (0,0,0),
+        }
+    }
+}
+
+
+
 /// Save Ean in an png file
-pub fn save_barcode_as_png(barcode_data: String,file_path:&str,config:PngConfig) {
+pub fn save_barcode_as_png(barcode_data: String,file_path:&str,config:AdvancedPngConfig) {
     let mut f = std::fs::File::create(file_path).unwrap();
 
         let image_width = barcode_data.len() *10;
@@ -96,11 +133,18 @@ pub fn save_barcode_as_png(barcode_data: String,file_path:&str,config:PngConfig)
             for char in barcode_data.chars() {
                 if char == '1' {
                     for _n in 0..10 {
-                        for _i in 0..4 {
-                            img_data.push(
-                                0x00
-                            );
-                        }
+                        img_data.push(
+                            config.color_barcode.0
+                        );
+                        img_data.push(
+                            config.color_barcode.1
+                        );
+                        img_data.push(
+                            config.color_barcode.2
+                        );
+                        img_data.push(
+                            0xff
+                        );
                         
                     }
                 

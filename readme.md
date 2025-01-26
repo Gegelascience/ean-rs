@@ -73,11 +73,11 @@ fn main() {
     save_as_png(ean13,"path/to/png/file",None);
 
     // define specific dimensions
-    let config_png = ean_rs::PngConfig
+    let config_png = ean_rs::PngConfig::Simple(ean_rs::SimplePngConfig
     {
         height_barcode: 200,
         border_size: 50
-    };
+    });
     save_as_png(ean13,"path/to/png/file2",Some(config_png));
 }
 ```
