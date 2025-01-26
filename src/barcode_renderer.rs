@@ -66,6 +66,8 @@ impl Default for SimplePngConfig {
 ///    border_size: 50,
 ///    color_barcode: (255,0,0),
 ///  };
+/// ```
+/// 
 pub struct AdvancedPngConfig {
     pub height_barcode: u32,
     pub border_size: u32,
