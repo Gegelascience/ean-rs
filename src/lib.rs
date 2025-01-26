@@ -71,7 +71,7 @@ pub enum PngConfig {
 /// use ean_rs::PngConfig;
 /// use ean_rs::save_as_png;
 /// 
-/// let config_png = PngConfig::Advanced(ean_rs::SimplePngConfig {
+/// let config_png = PngConfig::Advanced(ean_rs::AdvancedPngConfig {
 /// 
 ///    height_barcode: 200,
 ///    border_size: 50,
